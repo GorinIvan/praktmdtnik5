@@ -1,23 +1,33 @@
-import '../lib/salon_service.dart';
+import 'package:salon/cat_shop_database.dart';
 
 void main() {
-  final service = SalonService();
+  final database = CatShopDatabase.file();
 
-  service.addClient('Анна', '+7-900-111-22-33');
-  service.addClient('Мария', '+7-900-444-55-66');
-  service.addClient('Ольга', '+7-900-777-88-99');
-
-  print('Список клиентов:');
-  for (final client in service.getClients()) {
-    print('  $client');
+  if (database.getCats().isEmpty) {
+    final customerId = database.addCustomer('Иван', '+7-900-123-45-67');
+    final firstCatId = database.addCat('Барсик', 'Британец', 2, 30000);
+    database.addCat('Мурка', 'Мейн-кун', 1, 45000);
+    database.sellCat(
+      catId: firstCatId,
+      customerId: customerId,
+      soldAt: '2026-05-20 12:00:00',
+    );
   }
 
-  final found = service.findByName('Мария');
-  print('\nПоиск "Мария": $found');
-
-  service.removeClient(1);
-  print('\nПосле удаления клиента #1:');
-  for (final client in service.getClients()) {
-    print('  $client');
+  print('Коты:');
+  for (final cat in database.getCats()) {
+    print(cat);
   }
+
+  print('\nПокупатели:');
+  for (final customer in database.getCustomers()) {
+    print(customer);
+  }
+
+  print('\nПродажи:');
+  for (final sale in database.getSales()) {
+    print(sale);
+  }
+
+  database.close();
 }
