@@ -1,0 +1,7 @@
+export 'src/cli/input_helper.dart';
+export 'src/cli/menu.dart';
+export 'src/data/salon_database.dart';
+export 'src/domain/appointment.dart';
+export 'src/domain/beauty_service.dart';
+export 'src/domain/client.dart';
+export 'src/domain/identity.dart';
