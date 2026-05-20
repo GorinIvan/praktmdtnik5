@@ -11,11 +11,7 @@ class SalonService {
   List<Client> getClients() => List.unmodifiable(_clients);
 
   Client? findByName(String name) {
-    try {
-      return _clients.firstWhere((c) => c.name == name);
-    } catch (_) {
-      return null;
-    }
+    return _clients.where((c) => c.name == name).firstOrNull;
   }
 
   bool removeClient(int id) {
